@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <button id="btn">click me(0)</button>
+    <button id='btn1'>click me(0)</button>
+    <button id='btn2'>click me(0)</button>
+    <button id='btn3'>click me(0)</button>
+    <ul id="btn-group">
+        <li>←</li>
+        <li>|></li>
+        <li>||</li>
+        <li>→</li>
+    </ul>
+</body>
+<script>
+    {
+        let $btn = $('#btn')
+        $btn.click(function () {
+            let $btn = $(this)
+            let n = parseInt(
+                $btn.html().slice(9, -1)//html()表示取到dom  执行获取操作
+            )
+            $btn.html("click me(" + (n + 1) + ")")//html("")括号中有内容 表示修改dom  执行修改操作
+        })
+    }
+    //jQuery对象自带遍历属性
+    //自动为上面btn123 分别添加了click事件
+    {
+        let $btns = $("button")
+        $btns.click(function () {
+            let $btns = $(this)
+            let n = parseInt(
+                $btns.html().slice(9, -1)
+            )
+            $btns.html("click me(" + (n + 1) + ")")
+        })
+    }
+
+    //查找：
+    //按选择器查找：$()支持几乎所有css选择器 最好用css选择器
+    //基本过滤
+    //内容过滤：1.按包含的文本内容过滤 .contains(text) 2.按子元素
+    //按节点关系查找:
+    //父元素：.parent() => parentNode
+    //直接子元素：.children => .children
+    //第一个子元素： .children().first() => .firstElementChild
+    //最后一个字元素： .children().last() => .lastElementChild
+    //前一个兄弟：.prev() => .previosElementSibling  .prevAll()前所有兄弟
+    //后一个兄弟：.next() => .nextElementSibling     .nextAll() 后所有兄弟
+    //除我之外所有兄弟： .siblins()
+
+
+    //实现按钮组效果
+    {
+        $("#btn-group>li:first-child").css("borderRadius", "8px 0 0 8px")
+        $("#btn-group>li:last-child").css("borderRadius", "0 8px 8px 0")
+        $("#btn-group>li:not(:first-child)").css("border-left", "none")
+    }
+
+    //修改：一个函数两用 ()中无内容 代表只读取 有内容代表修改
+    //1.内容：.html代替 .innerHTML  .text()代替 .textContent() 修改纯文本  .val代替.value()代替表单值
+    //2.属性：
+    //3.样式：修改内联样式：.css("css属性名"[,值])代替 style.css = 值   批量修改css样式 .css({属性名:值，属性名：值})
+
+</script>
+
+<style>
+    #btn-group {
+        list-style: none
+    }
+
+    #btn-group>li {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border: 2px solid gray;
+        float: left;
+    }
+</style>

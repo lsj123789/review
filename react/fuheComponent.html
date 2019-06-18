@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+    var MyHeader = React.createClass({
+        render:function(){
+            return <h1>页头</h1>
+        }
+    })
+    var MyContent = React.createClass({
+        render:function(){
+            return <p>正文<p>
+        }
+    })
+    var MyFooter = React.createClass({
+        render:function(){
+            return <h2>页脚</h2>
+        }
+    })
+    var MyIndex = React.createClass(){
+        render:function(){
+            return <div>
+            <MyHeader></MyHeader>
+            <MyContent></MyContent>
+            <MyFooter></MyFooter>
+            </div>
+        }
+    }
+    ReactDOM.render(
+        <MyIndex></MyIndex>,
+        document.getElementById('container')
+    )
+    </script>
+</body>
+
+</html>

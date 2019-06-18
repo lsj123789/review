@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+    //组件的本质就是一个可被反复使用的，带有特定功能的视图
+    //创建组件的名称首字母大写 保证大驼峰命名，如果首字母大写 用reactjs解析，如果小写则交给html
+    //return时要渲染的元素不允许直接换行 渲染多个元素要统一放在一个容器当中
+       
+        var MyComponent = React.createClass({
+            render:function(){
+                return <h1>hello component</h1>
+            }
+        })
+        ReactDOM.render(
+            <MyComponent></MyComponent>,
+            document.getElementById('example')
+        )
+
+
+
+
+</body>
+
+</html>

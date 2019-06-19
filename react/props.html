@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+var MyHeader = React.createClass({
+    render:function(){
+        return <h1>{this.props.myTitle}</h1>
+    }
+})
+
+ReactDOM.render(
+    <div>
+      <MyHeader myTitle = 'title1'></MyHeader>
+      <MyHeader myTitle = 'title2'></MyHeader>
+    </div>
+)
+
+
+//练习：
+var MyInput = React.createClass({
+    render:function(){
+        return <div>
+                <label>{this.props.label}</label>
+                <input type='text' placeholder={this.props.myPlaceholder}/>
+
+        </div>
+    }
+})
+
+var MyButton = React.createClass({
+    render:function(){
+        return <button>{this.props.myName}</button>
+    }
+})
+
+var MyForm = React.createClass({
+    render:function(){
+        return <form>
+         <MyInput myLabel='用户名' myPlaceholder='请输入用户名'></MyInput></br>
+         <MyInput myLabel='密码' myPlaceholder='请输入密码'></MyInput></br>
+         <MyButton myName = '登录'></MyButton>
+         <MyButton myName = '注册'></MyButton>
+         </form>
+    }
+})
+ReactDOM.render(
+    <MyForm></MyForm>,
+    document.getElementById('test')
+)
+
+//children
+var MyList = React.createClass({
+    render:function(){
+        return <ul>
+         {
+             React.Children.map(
+                 this.props.children,
+                 function(child){
+                     return child
+                 }
+             )
+         }
+        </ul>
+    }
+})
+
+ReactDOM.render(
+    <MyList>
+      <li>test1</li>
+      <li>test2</li>
+    </MyList>,
+    document.getElementById('test2')
+)
+
+//方法作为属性来传  子组件向父组件传值
+var MyButton = React.createClass({
+    myIndex:10,
+    myClick:function(){
+        this.props.btnClick(this.myIndex)
+    },
+    render:function(){
+        return <button onClick='myClick'>{this.props.btnName}</button>
+    }
+})
+
+var MyForm = React.createClass({
+    handleLogin:function(arg1){
+        console.log('点击了登录,子组件传值为'+ arg1);
+    },
+    handleRegiste:function(arg1){
+        console.log('点击了注册，子组件传值为'+ arg1);
+    },
+    render:function(){
+        return <div>
+            <MyButton btnName="登录" btnClick={this.handleLogin}></MyButton>
+            <MyButton btnName="注册" btnClick={this.handleRegiste}></MyButton>
+        </div>
+    }
+
+})
+
+ReactDOM.render(
+   <MyForm></MyForm>,
+    document.getElementById('test3')
+
+)
+</script>
+</body>
+
+</html>

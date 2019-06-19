@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        var TodoInput = React.createClass({
+          handleClick:function(){
+              this.props.funcAdd(this.refs.myInput.value)
+              this.refs.myInput.value = ''
+            },
+          render:function(){
+              return <div>
+                  <h1>待办事项列表</h1>
+                  <input type='text' ref='myInput' palceholder='请输入'/>
+                  <button onClick={this.handleClick}>add</button>
+                </div>
+          }
+      })
+      var TodoItem = React.createClass({
+          handleDelete:function(){
+              console.log(this.props.myIndex);
+              this.props.myDelete(this.props.myIndex)
+          },
+          render:function(){
+              return <li>
+                <button onClick={this.handleDelete}>delete</button>
+                <span>{this.props.myValue}</span>
+                </li>
+          }
+      })
+
+      var TodoList = React.createClass({
+          render:function(){
+              return <ul>
+                {
+                    this.props.myList.map((value,index) => {
+                        return <TodoItem myDelete={this.props.funcDelete} myValue={value} myIndex={index} key={index}/>
+                    })
+                }
+             </ul>
+          }
+      })
+
+      var TodoBox = React.createClass({
+          getInitialState:function(){
+              return {list:[]}
+          },
+          addToList:function(msg){
+              var nowList = this.state.list
+              nowList.push(msg)
+              this.setState({list:nowList},function(){
+                  console.log(this.state.list);
+              })
+          },
+           deleteFromList:function(index){
+                  var nowList = this.state.list
+                  nowList.splice(index,1)
+                  this.setState({list:nowList})
+          },
+          render:function(){
+              return <div>
+                <TodoInput funcAdd = {this.addToList}/>
+                <TodoList funcDelete={this.deleteFromList} myList={this.state.list}/>
+            </div>
+          }
+      })
+      ReactDOM.render(
+          <TodoBox></TodoBox>,
+          document.getElementById('container')
+      )
+    </script>
+</body>
+
+</html>

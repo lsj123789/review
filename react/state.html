@@ -10,11 +10,13 @@
 
 <body>
     <div id="test1"></div>
+    <div id="test2"></div>
     <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
     <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
     <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
     <script type="text/babel">
-      var MyComponent = React.createClass({
+        {
+       var MyComponent = React.createClass({
           getInitialState:function(){
               return{
                   isBtnOn:false
@@ -31,6 +33,41 @@
           <MyComponent></MyComponent>,
           document.getElementById('test1')
       )
+    }
+
+    {
+        //练习
+        var MyComponent = React.createClass({
+            getInitialState:function(){
+                return{
+                    opacityValue:0,
+                }
+            },
+            ComponentWillMount:function(){
+                setInterval(() => {
+                    let nowValue = this.state.opacityValue
+                    nowValue += 0.1
+                    if(nowValue > 1){
+                        nowValue = 0
+                    }
+                    this.setState({opacityValue:nowValue},function(){
+                    console.log('成功后的回调');
+                })
+                }, 500);
+               
+            },
+            render:function(){
+                return <h1 style={{this.state.opacityValue}}>hello lifeCycle</h1>
+            }
+        })
+
+        ReactDOM.render(
+            <MyComponent/>,
+            document.getElementById('test2')
+        )
+    }
+
+
     </script>
 </body>
 

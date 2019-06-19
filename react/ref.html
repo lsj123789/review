@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+    var MyComponent = React.createClass({
+        handleClick:function(){
+            //通过ref获取input输入的内容
+            console.log(this.refs.myInput.value);
+        },
+        render:function(){
+            return <div>
+              <input ref="myInput" type="text" placeholder='请输入内容'/></br>
+              <button onClick={this.handleClick}></button>
+            </div>
+        }
+    })
+
+    ReactDOM.render(
+        <MyComponent></MyComponent>,
+        document.getElementById('test1')
+    )
+
+    //练习
+    var MyInputConponent = React.createClass({
+        handleChange:function(){
+           this.props.funcSave(this.refs.myInput.value)
+        },
+        render:function(){
+            return <input ref='myInput' type='test' placeholder='请输入内容' onChange={this.handleChange}/>
+        },
+    })
+
+    var MyButtonConponent = React.createClass({
+        handleClick:function(){
+          this.props.myClick()
+        },
+        render:function(){
+            return <button onClick={this.handleClick}>click me</button>
+        }
+    })
+    
+    var MyMainComponent = React.createClass({
+        userMsg:'',
+        save:function(msg){
+            this.userMsg = msg
+        },
+        handleValue:function(){
+            return this.userMsg
+        },
+        render:function(){
+            return <div>
+              <MyInputConponent funcSave={this.save} ></MyInputConponent>
+              <MyButtonConponent myClick={this.handleValue}></MyButtonConponent>
+            </div>
+        }
+    })
+
+    ReactDOM.render(
+        <MyMainComponent></MyMainComponent>,
+        document.getElementById('test2')
+    )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 组件的工具栏 -->
+    <div id="main" style="width: 800px;height: 600px"></div>
+</body>
+
+</html>
+
+<script>
+    var myChart = echarts.init(document.getElementById('main'))
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        toolbox: {
+            show: true,
+            //具体显示的功能
+            feature: {
+                //数据视图
+                dataView: {
+                    show: true
+                },
+                //还原
+                restore: {
+                    show: true
+                },
+                //缩放试图
+                dataZoom: {
+                    show: true
+                },
+                //保存为图片
+                saveAsImage: {
+                    show: true
+                },
+                //动态切换类型
+                magicType: {
+                    type: ['line', 'bar']
+                }
+            }
+        },
+        legend: {
+            data: ['销量']
+        },
+        xAxis: {
+            data: ['羊毛衫', '雪纺衫', '针织衫', 'T恤', '外套', '连衣裙']
+        },
+        yAxis: {},
+        series: [
+            {
+                name: '销量',
+                type: 'bar',
+                data: [12, 13, 14, 15, 38, 4, 6]
+            },
+            {
+                name: '产量',
+                type: 'line',
+                data: [12, 13, 14, 24, 25, 25, 12]
+            }
+        ]
+    }
+
+    myChart.setOption(option)
+</script>

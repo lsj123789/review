@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //---------------------------------------------------------------------预编译-----------------------------------------------------------------------------
+        //js执行：1.语法分析 2.预编译 3.解释执行
+        //函数声明整体提升  变量声明 声明提升
+        //未经声明 直接赋值 该属性属于window属性  全局上的任何变量 都是window属性：window就是全局的域
+        a = 10
+        window.write(a)//10
+        //先是 b =123 是直接赋值 属于window属性 ，再var a = b 属于声明并赋值 不属于window属性 但存在变量声明的提升 所以不会报错也不会访问到值。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。 
+        function test() {
+            var b = c = 123
+        }
+        test()
+        window.a//undefined
+        window.b//123
+
+        //预编译发生在函数执行的前一刻:
+        //1.创建AO(actibation object:执行期上下文 也就是通常理解的作用域)对象
+        //2.找形参和变量声明的名作为AO对象挂起来 这时的值为undefined
+        //3.将实参和形参的值相统一
+        //4.找函数体里面的函数声明 值赋予函数体
+
+        //创建AO对象 预编译时AO：{a: undefined,b:undefined}然后将实参和形参相匹配 AO:{a:1,b:undefined}再找函数体里面的函数声明AO：{a:function(){},b:undefined,d:function(){}}
+        function fn(a) {
+            console.log(a)//function(){}
+            var a = 123
+            console.log(a)//123
+            function a() { }
+            console.log(a)//123
+            var b = function () { }
+            console.log(b)//function(){}
+            function d() { }
+        }
+        fn(1)
+
+        //1，2步 AO：{a:undefined ,b:undeifined , c:undefined } 执行3:AO:{a:1,b:undefined,c:undefined}执行4:AO:{a:1,b:function(){},c:undefined,d:function(){}} 然后按顺序执行代码
+        function test(a, b) {
+            console.log(a)//1
+            c = 0;
+            var c;
+            a = 3;
+            b = 2;
+            console.log(b)//2
+            function b() { }
+            function d() { }
+            console.log(b)//2
+        }
+        text(1)
+
+        function text(a,b){
+            console.log(a)//fn
+            console.log(b)//undefined
+            var b = 234
+            console.log(b)//234
+            a = 123
+            console.log(a)//123
+            function a(){}
+            var b = 234
+            var b = function(){}
+            console.log(a)//123
+            console.log(b)//fn
+        }
+        text(1)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 浏览器中的异步操作：
+        // 1.定时函数（达到延时时间）
+        // 2.事件函数（绑定的事件被触发）
+        // 3.ajax回调函数（服务器数据响应的时候）
+
+        //异步任务触发条件：
+        //1.主线程空闲  2.满足任务触发条件
+
+        //定时函数示例
+        console.log(1);
+        setTimeout(function () {
+            console.log(2);
+        }, 100)
+        console.log(3);
+        //运行结果： 1 3 2
+        //分析：主线程运行，打印数字1，遇到setTimeout（），将其放入时间队列，继续执行，打印数字3，此时主线程处于空闲状态，循坏队列访问事件队列，打印数字2
+
+        //事件函数示例
+        window.onload = function () {
+            var btn = document.getElementById('btn')
+            console.log(4);
+            btn.onclick = function () {
+                console.log(5);
+            }
+            console.log(6);
+        }
+        //运行结果：4 6 点击按钮时 再打印 5
+
+        //Ajax回调函数示例
+        //创建XMLHttpRequest对象
+        let xmlhttp;
+        //判断浏览器是否支持XMLHttpRequest对象
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest()
+        } else {
+            xmlhttp = new ACtiveObject('Microsoft.XMLHttp')
+        }
+        //发送请求
+        xmlhttp.open('GET', url, true)
+        xmlhttp.send()
+        //服务端响应
+        xmlhttp.addEventListener("readystatechange", () => {
+            if (xmlhttp.readyState == 4 && xmlhttp.static == 200) {
+                let obj = JSON.parse(xmlhttp.responseText)
+            }
+        })
+
+
+    </script>
+</head>
+
+<body>
+    <input type="text" id="btn" value="按钮">
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // -----------------------------------------------------------递归------------------------------------------------------------------------
+        // 递归：1.找规律 2.找出口
+
+        // 用递归的方法求n的阶乘
+        // n! = n * (n -1)!
+
+        function mul(n) {
+            if (n == 1 || n == 0) {
+                return 1
+            }
+            return n * mul(n - 1)
+        }
+        //用递归方法求菲普那契额数列
+        //fb(n) = fb(n - 1) + fb(n - 2)
+        function fb(n) {
+            if (n == 1 || n == 2) {
+                return 1
+            }
+            return fb(n - 1) + fb(n - 2)
+        }
+    </script>
+</body>
+
+</html>

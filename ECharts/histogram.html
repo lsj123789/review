@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="main" style="width: 800px;height: 600px"></div>
+</body>
+
+</html>
+
+<script>
+    //准备好dom 初始化echarts 
+    var myChart = echarts.init(document.getElementById('main'))
+    //指定图表的配置项和数据
+    var option = {
+        //标题
+        title: {
+            text: 'ECharts 入门实例'
+        },
+        //工具箱
+        toolbox: {
+            show: true,
+            //各工具配置项。除了各个内置的工具按钮外，还可以自定义工具按钮。
+            //注:自定义的工具名字，只能以 my 开头，
+            feature: {
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        //图例
+        legend: {
+            data: ['销量']
+        },
+        //x轴
+        xAxis: {
+            data: ['羊毛衫', '雪纺衫', '针织衫', 'T恤', '外套', '连衣裙']
+        },
+        //y轴 y轴数据为空时 会默认按照series中的的data的内容生成y轴数据
+        yAxis: {},
+        //数据项 系列列表。每个系列通过 type 决定自己的图表类型
+        series: [
+            {
+            name: '销量',
+            type: 'bar',
+            data: [12, 14, 15, 17, 14, 10]
+        },
+        {
+            name:'产量',
+            type:'line',
+            data:[12,25,36,19,22,28]
+        }
+        ]
+    }
+    //使用刚指定的配置项和数据显示图表
+    myChart.setOption(option)
+</script>

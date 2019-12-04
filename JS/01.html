@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 主流浏览器
+  IE  trident
+  Chrome  webkit/blink
+  firefox  gecko
+  opera    presto
+  safari   webkit
+
+如何引入js
+ 1.页面级的js：<script type="text/javascript"></script>
+2.外部js文件：<script type="text/javascript" scr=''><script>
+
+ <!-- ----------------------------js操作运算符----------------------------- -->
+ <!-- 加号运算符'+'：1.加法运算  2.字符串拼接(任何类型的数据加上字符串 都拼成字符串) --> -->
+  <script type="text/javascript">
+    var a = 'a' + 'b';
+    document.write(a); //ab
+    var num = 1 / 0;
+    document.write(num); //infinite（正无穷）
+    var num2 = 0 / 0;
+    document.write(num2); //NaN
+    //  优先级 = 最弱  （）最强
+    var c = 1;
+    var d = c++ + 1;
+    document.write(c); //2
+    document.write(d); //2 ++符号放在后面时，会等整个语句执行完成后再自加，++符号放在前面时，会先自加再执行语句
+    var e = (10 * 3 - 4 / 2 + 1) % 2,
+      f = 3;
+    f %= e + 3;
+    document.write(e++); //1
+    document.write(--f); //2
+    //  a=123,b=234,请交换a，b的值
+    var a = 123;
+    var b = 234;
+    // var c = a;
+    // a = b;
+    // b = c;
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    document.write(a); //234
+    document.write(b); //123
+
+    // -----------------------------js比较运算符--------------------------------
+    //字符串比较的是asc码 NaN不等于任何东西 包括自己
+
+    //---------------------------------逻辑运算符 && || ！-------------------------------
+    //undefined null NaN "" 0 false 转为布尔值均为false
+    var a = 1 && 2;
+    document.write(a); //2 如果第一个表达式结果为真，那么再看第二个表达式转化为布尔值的结果，如果只有两个表达式的话，就返回第二个表达式的值
+    var a = 0 && 2 + 2;
+    document.write(a); //false 如果第一个表达式为false 直接返回false
+    //---------------------------------条件运算符----------------------
+    var score = parseInt(window.prompt('input'));
+    //else if条件必须互斥
+    if (score > 90 && score <= 100) {
+      document.write('a');
+    } else if (score > 80 && score <= 90) {
+      document.write('t');
+    } else if (score > 70 && score <= 80) {
+      document.write('b');
+    } else {
+      document.write('error');
+    }
+
+    //------------------------------循环语句------------------------------------------------
+    //for循环
+    //打印出0到99的数：
+    var i = 100;
+    for (; i--;) {
+      document.write(i + ' '); //99 98 97 ... 0
+    }
+    //while循环的底层机制就是for循环，for循环()中前后没有条件 就相当于while循环
+    //100以内逢7的倍数或数字中有7 输出
+    var i = 0;
+    while (i < 100) {
+      if (i % 7 == 0 || i % 10 == 7) {
+        document.write(i);
+      }
+      i++;
+    }
+    //计算2的n次幂 n可输入 n为自然数
+    var n = parseInt(window.prompt('请输入n的值'))
+    var mul = 1;
+    for (var i = 0; i < n; i++) {
+      mul *= 2;
+    }
+    //计算n的阶乘
+    var m1 = parseInt(window.prompt('请输入n的值'))
+    var mul1 = 1;
+    for (var i = 1; i <= n; i++) {
+      mul *= i;
+    }
+    //输入abc三个数字 打印出最大的
+    var a = parseInt(window.prompt('请输入a'))
+    var b = parseInt(window.prompt('请输入b'))
+    var c = parseInt(window.prompt('请输入c'))
+    if (a > b) {
+      if (a > c) {
+        document.write(a)
+      } else {
+        document.write(c)
+      }
+    } else {
+      if (b > c) {
+        document.write(b)
+      } else {
+        document.write(c)
+      }
+    }
+
+    //斐波那契额数列 前两位已知 1 1 2 3 5 8输出第n项
+    //第几位 = 求和次数 + 2
+    var n = parseInt(window.prompt('请输入n'))
+    var first = 1,
+      second = 1,
+      third;
+    if (n > 2) {
+      for (var i = 0; i < n - 2; i++) {//i控制循环圈数
+        third = first + second;
+        first = second;
+        second = third;
+      }
+      document.write(third)
+    } else {
+      document.write('1')
+    }
+
+    //打印100以内的质数（质数：只能被1和自身整除）
+    var count = 0;
+    for (var i = 1; i < 100; i++) {
+      for (var j = 1; j <= 1; j++) {
+        if (i % j == 0) {
+          count++;
+        }
+      }
+      if (count == 2) {
+        document.write(i + " ")
+      }
+      count = 0;
+    }
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ---------------------------------------------------闭包--------------------------------------------------------
+        //内部函数b被保存到了外部 形成闭包👇
+        //这时候b被保存到了外部 a执行完想销毁自己的AO已经销毁不了了 因为b已经拿到了a的AO
+        function a() {
+            function b() {
+                console.log(num)//123
+                num++
+            }
+            var num = 123
+            return b//b被返回去 保存在外部了
+        }
+        var demo = a()//demo()现在就是 b 
+        demo()//124
+        demo()//125
+
+        //闭包会导致作用域链不释放 造成内存泄漏
+        //闭包的作用
+        //1.实现公有变量 eg:函数累加器
+        function add() {
+            var count = 0
+            function demo() {
+                count++
+                console.log(count)
+            }
+            return demo
+        }
+        var counter = add()
+        counter()
+        //2.闭包可以做缓存 （存储结构）
+        //a()和b()共用一个test()的AO
+        function test() {
+            var num = 100
+            function a() {
+                num++
+                console.log(num)//101
+            }
+            function b() {
+                num--
+                console.log(num)//100
+            }
+            return [a, b]
+        }
+        var myArr = test()
+        myArr[0]()
+        myArr[1]()
+        //food缓存下来 做了存储结构
+        function eater() {
+            var food = ""
+            var obj = {
+                eat: function () {
+                    console.log(food)//apple
+                    food = ""
+                },
+                push: function (myFood) {
+                    food = myFood
+                }
+            }
+            return obj
+        }
+        var eater1 = eater()
+        eater1.push('apple')
+        eater1.eat()
+
+        // -------------------------------------------------------立即执行函数-----------------------------------------------------
+        //针对初始化功能的函数
+        var num = (function (a, b, c) {
+            var d = a + b + c
+            return d
+        }(1, 2, 3))
+
+        //只有表达式才能被执行符号执行
+
+        // function d(){
+        //     var a = 123
+        // }()//这种情况会报错 语法解析错误
+
+        //这种形式不报错也不会执行 
+        function d(a, b, c, d) {
+            console.log(a + b + c + d)
+        } (1, 2, 3, 4)//系统并没有把这个括号理解为执行符号 而只是单纯的表达式
+
+        //这种表达式形式 可以被执行符号执行
+        var d = function () {
+            console.log('a')//a
+        }()
+
+        //能被执行函数执行的表达式 那么他的名字会被自动忽略
+
+        function test() {
+            var arr = []
+            for (var i = 0; i < 10; i++) {
+                arr[i] = function () {
+                    console.log(i)//打印10次10
+                }
+            }
+            return arr
+        }
+        var myArr = test()
+        for (var j = 0; j < 10; j++) {
+            myArr[j]()
+        }
+
+        //解决👇
+        function test() {
+            var arr = []
+            for (var i = 0; i < 10; i++) {
+                (function (j) {
+                    arr[j] = function () {
+                        console.log(j)//12345678910
+                    }
+                }(i))
+            }
+            return arr
+        }
+        var myArr = text()
+        for (var j = 0; j < 10; j++) {
+            myArr[j]()
+        }
+
+        //写一个方法 求一个字符串的字节长度 字符串有一个方法 charCodeAt() 一个中文占两个字节 一个英文占一个字节
+        //charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。当返回值小于等于255时 为英文 当返回值大于255时为中文
+        function retByteslen(target) {
+            var count = 0
+            for (var i = 0; i < target.length; i++) {
+                if (target.charCodeAt(i) <= 255) {
+                    count++
+                } else if (target.charCodeAt(i) > 255) {
+                    count += 2
+                }
+            }
+        }
+
+        //简化👇
+        function retByteslen(target) {
+            var count,
+                len;
+            count = len = target.length
+            for (var i = 0; i < len; i++) {
+                if (target.charCodeAt(i) > 255) {
+                    count++
+                }
+            }
+        }
+
+        //逗号运算符 先运算前面的表达式 再运算后面的表达式 然后把后面表达式的结果返回去
+        let a = (1 - 1, 1 + 1)
+        console.log(a)//2
+
+        var f = (
+            function f() {
+                return "1"
+            },
+            function g() {
+                return 2
+            }
+        )()
+        console.log(typeof f)//number
+
+
+        var x = 1
+        if (function f() { }) {//函数放在括号里面 括号会将函数变成表达式 这时function()消失
+            x += typeof f//任何变量未经声明就使用肯定会报错(任何对象的属性未经声明就使用 不会报错 会返回undefined)  但是将其放在typeof中 就不会 只会返回字符串类型的undefined 这时加1只会返回拼接后的字符串
+        }
+        console.log(x)//1undefined
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // -------------------------------------------------------------对象---------------------------------------------------------
+        // 对象的创建方法：
+        // 1.var obj = {} :plainObject 对象字面量
+        // 2.var obj = new Object():构造函数 1)系统自带的构造函数  2)自定义
+        //构造函数命名时 严格按照大驼峰式命名规则
+
+        //构造函数内部原理：
+        // 1.在函数体最前面隐式加上 this={}
+        // 2.执行 this.xxx = xxx
+        // 3.隐式返回this
+        //模拟系统构造函数方法👇
+        function Person(name, age) {
+            var that = {};
+            that.name = name
+            that.age = age
+            return that
+        }
+        var person = Person('zhangsan', 12)
+
+        // ---------------------------------------------------------------包装类--------------------------------------------------------
+        //原始值是没有属性和方法的 是靠着包装类来操作属性的
+
+        //像这样隐式的操作环节就叫做包装类👇
+        // var num = 4
+        // num.len 3 原始值没有属性 但系统会隐式的new一个 这时 new Number(4).len = 3 然后delete
+        // console.log(num.len)  这是访问num.len还是访问不了 系统又会为他new一个实例 new Number(4).len 但是上面创建完属性之后 就delete了 这时访问不到len的值 所以返回undefined
+
+        var str = 'abc'
+        str += 1
+        var test = typeof (str)
+        if (test.length == 6) {
+            test.sign = "xxx"//系统隐式  new String(text).sign = 'xxx' 然后delete
+        }
+        console.log(test.sign)//系统new String(text).sign 但没有值  所以返回undefined
+
+    </script>
+</body>
+
+</html>

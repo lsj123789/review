@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ------------------------------------------原型 原型链--------------------------------------------
+        // 原型：原型是function对象的一个属性 他定义了构造函数制造出的对象的公共祖先 通过该构造函数产生的对象 可以继承该原型的属性和方法 原型也是对象
+        Person.prototype.name = 'abc'
+        function Person() {
+            //相当于
+            //var this = {
+            //   __proto__:Person.prototype
+            // }
+        }
+        var obj = {
+            name: 'sunny'
+        }
+        var person = new Person()
+        person.__proto__ = obj
+        console.log(person.name)//sunny 前面修改了person的原型 所以现在可以访问obj下面的属性
+
+        //辨析
+        Person.prototype.name = 'sunny'
+        function Person() { }
+        var person = new Person()
+        Person.prototype.name = 'cherry'// .的写法是把原有的值改变
+        console.log(Person.prototype.name)//cherry
+
+        Person.prototype.name = 'sunny'
+        function person() { }
+        var person = new Person()
+        Person.prototype = {//这种写法是换了一个新对象
+            name: 'cherry'
+        }
+        console.log(Person.prototype.name)//cherry
+
+        Person.prototype.name = 'sunny'
+        function person() { }
+        Person.prototype = {
+            name: 'cherry'
+        }
+        var person = new Person()
+        console.log(person.prototype.name)//cherry  程序经过预编译 将45行提升 然后执行44行 然后46行覆盖掉44行 再49行生成时 name 已经等于 cherry了
+
+        // ---------------------------------------------------原型链---------------------------------------------------
+        //例一👇
+        //Grand.prototype.__proto__ = Object.prototype
+        Grand.prototype.lastName = 'deng'
+        function Grand() { }
+        var grand = new Grand()
+        Father.prototype = grand
+        function Father() {
+            this.name = 'haha'
+        }
+        var father = new Father()
+        Son.prototype = father
+        function Son() {
+            this.hobbit = 'smoke'
+        }
+        var son = new Son()
+        console.log(son.lastName)//deng son自己的原型上没有lastName属性 会再向上查找 找到father father上也没有这个属性 再向上查找 到grand grand上有这个属性 返回
+        //这样形成的一条查找链就叫做原型链
+
+        //例二👇
+        Person.prototype = {
+            name: 'a',
+            sayName: function () {
+                console.log(this.name)//a
+            }
+        }
+        function Person() { }
+        var person = new Person()
+        console.log(person.sayName())//自身没有这个属性 会在原型链上查找 找到以后返回 
+
+        Person.prototype = {
+            name: 'a',
+            sayName: function () {
+                console.log(this.name)//b
+            }
+        }
+        function Person() { }
+        var person = new Person()
+        console.log(person.sayName())//这里要看this的指向，通常情况下 谁调用了这个方法 this就指向谁 这里person调用了这个方法 this就指向person 所以打印出的是b
+        // ------------------------------------------call apply---------------------------------------------
+        //call的第一个参数是this的新指向，后面的参数：需要把实参按找形参的顺序传进去
+        //apply的第一个参数是this的新指向，后面的参数：需要以数组的形式传入
+        //目的是把执行函数里的this改变成你所传进去的对象
+        //call👇
+        function Person(name, age) {
+            this.name = namethis.age = age
+        }
+        var person = new Person('deng', 100)
+        var obj = {
+
+        }
+        Person.call(obj, 'cheng', 300)//这时person的原型指向obj
+
+
+        function Person(name, age, sex) {
+            this.name = name
+            this.age = age
+            this.sex = sex
+        }
+        function Student(name, age, sex, tel, grand) {
+            Person.call(this, name, age, sex)//相当于👇
+            //this.name = name
+            //this.age = age
+            //this.sex = sex
+            this.tel = tel
+            this.grand = grand
+        }
+        var student = new Student('sunny', 123, 'male', 110, 2017)
+        //apply👇
+        function Model(height, width, len) {
+            this.height = height
+            this.width = width
+            this.len = len
+        }
+        function Sit(sitColor, comfortable) {
+            this.sitColor = sitColor
+            this.comfortable = comfortable
+        }
+        function Car(height, width, len, sitColor, comfortable) {
+            Model.apply(this, [height, width, len])
+            Sit.apply(this, [sitColor, comfortable])
+        }
+        var car = new Car(100, 100, 100, 'red', 'true')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+// -----------------------------------------------------------显示类型转化-------------------------------------------------------
+   
+// typeof 返回值 : number string boolean object undefined function
+
+        var a = [];
+        console.log(typeof (a))
+        // < !--object -->
+        var b = null;
+        console.log(typeof (b))
+
+        // < !--object  因为早期null是用来占位的对象-- >
+
+
+// Number:把其他类型转为数字，true转为1，false转为0，null转为0，undefined转为NaN
+        var c = Number(null)
+        console.log(c)   //0
+
+        var d = Number(undefined)
+        console.log(d)//NaN
+
+        var e = Number('123abc')
+        console.log(e)//NaN
+
+// parseInt:转化为整型 boolean均转化为NaN
+        var f = parseInt('123.9')
+        console.log(f)//123
+
+        var g = parseInt('100px')
+        console.log(g)//100
+
+// parseFloat:转为浮点数 从数字位开始看 看到除了第一个小数点以外的非数字位
+        var h = parseFloat('100.2asd')
+        console.log(h)//100.2
+
+ // string：转为字符串
+
+//Boolean：转为布尔值 显示类型转化
+        var i = Boolean('')
+        console.log(i)//false
+
+// toString:把谁转化成字符串 就谁.toString undefined和null不能用tostring
+        var j = 10
+        var k = j.toString(8)//把10转化成八进制赋给k
+        console.log(k)//12
+
+
+// -------------------------------------------隐式类型转化 内部调用的都是显式类型转化方式--------------------------------------------------------
+
+// isNaN:先把变量Number() 然后再和NaN比较 返回布尔值
+       console.log(isNaN("abc"))//Number(abc)转为NaN 再和NaN比对 返回true
+       console.log(isNaN(null))//Number(null)等于0 0再NaN 返回false
+       console.log(isNaN(undefined))//Number(undefined)等于NaN 再NaN 返回true
+
+//++,--和一元正负运算：
+        var l = '123'
+        console.log(l++)//124 先Number("123") 再加一
+
+        var m = 'abc'
+        console.log(m++)//NaN
+        console.log(typeof(m))//"number" 即使字符串转数字没转成实际数字 但是现在也是number型
+
+        var n = +'abc';
+        console.log(a + ":" + typeof(a))//NaN:number  
+
+//加号“+”的隐式类型转化：当加号两侧有一个东西是字符串的话 就会调用string()
+       
+ 
+
+
+
+
+
+    </script>
+</body>
+
+</html>

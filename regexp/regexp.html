@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // \:转义字符
+    // \n:换行(document.write()中失效 因为该方法把换行理解为空格)
+    // \r:行结束符
+    // \t:缩进或制表
+
+    // 正则表达式：匹配特殊字符或有特殊搭配原则的字符的最佳选择
+    // 修饰符：
+    // i:忽略大小写
+    // g:全局匹配
+    // m:多行匹配
+    // 创建方法：1.直接量 2.new RegExp()
+    {
+        let reg = /abc/; // 正则表达式abc 
+        let str = 'abcd'
+        console.log(reg.test(str)) // true  str中是否包括reg格式的字符串
+    }
+    // 表达式
+    // []:一个[]代表一位
+    // ^放在[]里面，表示非，放在外面表示匹配第一个字符
+    // $ : 以什么结束
+    {
+        let reg = /[0-9][0-9][0-9]/g;
+        let str = '12345second876hello';
+        console.log(str.match(reg)) // ['123','876'] 查找str中是否有前三位是数字的字符 一个[]代表一位
+    } {
+        let reg = /(abc | bcd)[0-9]/; // 匹配规则：匹配abc或bcd后面加0-9的数字组成的字符串
+        let str = 'abc3';
+        console.log(str.match(reg)) // ['abc3']
+    }
+    // 元字符：拥有特殊含义的字符
+    // \w：代表区间 [0-9A-z_]
+    // \W:[^\w]
+    // \d:[0-9]
+    // \D:[^0-9]
+    // \s:[\n\t\f\v\r  ] 查找所有空字符
+    // \S:[^\s]
+    // \b:单词边界
+    // \B:非单词边界
+    // . ：查找所有字符 除了行结束符和换行符
+    // + ：出现1到正无穷次
+    // * ：出现0到正无穷次
+    // ?= :正向预查 或者正向限定 eg:a(?=b) 匹配字符串a后面是字符串b的
+    // !?= :非正向预查
+    // ? :正则表达式默认是贪婪匹配，每次都会匹配符合规则的尽量多个字符，? 可以取消贪婪匹配
+    // {1,n}:匹配1到n个
+    // {1,}：匹配1到正无穷个
+    // \1：这个\1  \2......  都要和正则表达式集合()一起使用，简单的说就是，\1表示重复正则第一个圆括号内匹配到的内容，\2表示重复正则第二个圆括号内匹配到的内容
+    {
+        let reg = /\w*/g;
+        let str = 'abc';
+        console.log(str.match(reg)) // ['abc',''] // 到c还没有结束匹配 以为*可以匹配0到正无穷次，所以c到逻辑上的结束 还有一个""
+    }
+
+    {
+        let reg = /\d*/g;
+        let str = 'abc';
+        str.match(reg) // ['','','',''] 光标在a,b,c前面和c后面 分别匹配一个空串
+    }
+</script>

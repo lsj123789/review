@@ -57,12 +57,16 @@ export const NavSearch = styled.input.attrs({
     border-radius:19px;
     margin-top:9px;
     margin-left:20px;
-    padding:0 20px;
+    padding:0 30px 0 20px;
     box-sizing:border-box;
     background:#eee;
     font-size:14px;
+    color:#666;
     &::placeholder{
         color:#999;
+    }
+    &.focused{
+        width:240px;
     }
 `
 export const Addition = styled.div `
@@ -89,7 +93,7 @@ export const Button = styled.div `
     }
 `
 
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled.div `
     float:left;
     position: relative;
     .iconfont{
@@ -100,5 +104,9 @@ export const SearchWrapper = styled.div`
         line-height: 30px;
         border-radius:15px;
         text-align:center;
+        &.focused{
+        color:#fff;
+        background:#666;
+    }
     }
 `

@@ -23,7 +23,10 @@ class Header extends Component{
                 <HotSearch onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
                       <HotSearchTitle>
                           热门搜索
-                          <HotSearchSwitch onClick={() => handleChangePage(page,totalPage)}>换一批</HotSearchSwitch>
+                          <HotSearchSwitch onClick={() => handleChangePage(page,totalPage,this.spinIcon)}>
+                          <i ref={icon => this.spinIcon = icon} className='iconfont spin'>&#xe626;</i>
+                              换一批
+                          </HotSearchSwitch>
                       </HotSearchTitle>
                       <HotSearchList> 
                           {pageList}
@@ -53,7 +56,7 @@ class Header extends Component{
                         onFocus={handleInputFocus}
                         onBlur={handleInputBlur}
                       />
-                      <i className={focused || mouseIn ? 'focused iconfont' : 'iconfont'}>&#xe601;</i>
+                      <i className={focused || mouseIn ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe601;</i>
                       {this.getHotSearchArea()}
                     </SearchWrapper>
                     <Addition>
@@ -95,7 +98,14 @@ const mapDispatchToProps = dispatch => {
         mouseEnter(){
             dispatch(actionCreators.mouseEnter())
         },
-        handleChangePage(page,totalPage){
+        handleChangePage(page,totalPage,spin){
+           let originAngle = spin.style.transform.replace(/[^0-9]/ig,'')//将不是0~9的数字都替换成空
+           if(originAngle){
+               originAngle = parseInt(originAngle,10)//z字符串转成十进制整数
+           }else{
+               originAngle = 0
+           }
+           spin.style.transform = `rotate(${originAngle + 360}deg)`
             if(page < totalPage){
                 dispatch(actionCreators.changePage(page + 1))
             }else{

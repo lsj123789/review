@@ -39,7 +39,7 @@ class Header extends Component{
     }
 
     render(){
-        const { handleInputFocus ,handleInputBlur , focused , mouseIn} = this.props;
+        const { handleInputFocus ,handleInputBlur , focused , mouseIn , hotSearchList} = this.props;
         return(
             <WrapperHeader>
                 <Logo />
@@ -53,7 +53,7 @@ class Header extends Component{
                     <SearchWrapper>
                       <NavSearch 
                         className={focused || mouseIn? 'focused' : null} 
-                        onFocus={handleInputFocus}
+                        onFocus={() => handleInputFocus(hotSearchList)}
                         onBlur={handleInputBlur}
                       />
                       <i className={focused || mouseIn ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe601;</i>
@@ -85,8 +85,10 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
     return {
-        handleInputFocus(){
-            dispatch(actionCreators.getHotSearchList())
+        handleInputFocus(hotSearchList){
+            // 只有第一次搜索框聚焦时才应该发送请求 请求热门搜索数据
+            // 这里应避免无意义请求，提升组件性能
+            (hotSearchList.size === 0) && dispatch(actionCreators.getHotSearchList())
             dispatch(actionCreators.searchFocus())
         },
         handleInputBlur(){

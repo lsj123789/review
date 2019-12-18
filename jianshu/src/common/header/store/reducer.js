@@ -1,6 +1,7 @@
 import {
     SEARCH_FOCUS,
-    SEARCH_BLUR
+    SEARCH_BLUR,
+    CHANGE_HOT_SEARCH_LIST
 } from './constants';
 import {
     fromJS
@@ -8,6 +9,7 @@ import {
 
 const defaultState = fromJS({
     focused: false,
+    hotSearchList:[],
 });
 
 export default (state = defaultState, action) => {
@@ -17,6 +19,9 @@ export default (state = defaultState, action) => {
     }
     if (action.type === SEARCH_BLUR) {
         return state.set('focused', false)
+    }
+    if(action.type === CHANGE_HOT_SEARCH_LIST){
+        return state.set('hotSearchList' , action.data)
     }
     return state
 }

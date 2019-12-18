@@ -8,7 +8,6 @@ class Topic extends Component{
         return(
             <TopicWrapper>
                 {topicList.map( item => {
-                    console.log(item)
                     return(
                     <TopicItem key={item.get('id')}>
                        <img alt='' className='topic-pic' src={item.get('imgUrl')} />

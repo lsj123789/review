@@ -1,14 +1,20 @@
 import {
     SEARCH_FOCUS,
     SEARCH_BLUR,
-    CHANGE_HOT_SEARCH_LIST
+    CHANGE_HOT_SEARCH_LIST,
+    MOUSE_ENTER,
+    MOUSE_LEAVE,
+    CHANGE_PAGE
 } from './constants';
-import { fromJS } from 'immutable';
+import {
+    fromJS
+} from 'immutable';
 import axios from 'axios';
 
 const changeHostSearchList = data => ({
     type: CHANGE_HOT_SEARCH_LIST,
-    data:fromJS(data)
+    data: fromJS(data),
+    totalPage: Math.ceil(data.length / 10)
 })
 
 const searchFocus = () => ({
@@ -29,8 +35,24 @@ const getHotSearchList = () => {
     }
 }
 
+const mouseEnter = () => ({
+    type: MOUSE_ENTER
+})
+
+const mouseLeave = () => ({
+    type: MOUSE_LEAVE
+})
+
+const changePage = (page) => ({
+    type: CHANGE_PAGE,
+    page,
+})
+
 export {
     searchFocus,
     searchBlur,
-    getHotSearchList
+    getHotSearchList,
+    changePage,
+    mouseEnter,
+    mouseLeave
 }

@@ -131,6 +131,7 @@ export const HotSearchTitle = styled.div`
 export const HotSearchSwitch = styled.div`
     float:right;
     font-size:13px;
+    cursor: pointer;
 `
 
 export const HotSearchItem = styled.a`

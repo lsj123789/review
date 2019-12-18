@@ -1,7 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { WrapperHeader ,Logo, Nav , NavItem, NavSearch , Addition , Button , SearchWrapper} from './style'
+import { WrapperHeader,HotSearch,HotSearchList, HotSearchItem, HotSearchSwitch ,HotSearchTitle ,Logo, Nav , NavItem, NavSearch , Addition , Button , SearchWrapper} from './style'
 import  { actionCreators } from './store'
+
+const getHotSearchArea = show => {
+    if(show){
+        return(
+            <HotSearch>
+                  <HotSearchTitle>
+                      热门搜索
+                      <HotSearchSwitch>换一批</HotSearchSwitch>
+                  </HotSearchTitle>
+                  <HotSearchList> 
+                      <HotSearchItem>教育</HotSearchItem>
+                      <HotSearchItem>医疗</HotSearchItem>
+                      <HotSearchItem>前端</HotSearchItem>
+                      <HotSearchItem>后端</HotSearchItem>
+                      <HotSearchItem>数据库</HotSearchItem>
+                      <HotSearchItem>摄影</HotSearchItem>
+                  </HotSearchList>
+              </HotSearch>
+        )
+    }else{
+        return null
+    }
+}
 
 const Header = props => {
    const { focused,handleInputFocus,handleInputBlur } = props;
@@ -22,6 +45,7 @@ const Header = props => {
                 onBlur={ handleInputBlur }
               />
               <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe601;</i>
+              {getHotSearchArea(focused)}
             </SearchWrapper>
             <Addition>
                 <Button className='reg'>注册</Button>

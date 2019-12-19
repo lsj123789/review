@@ -28,8 +28,8 @@ class Writer extends Component{
             <WriterWrapper>
               <WriterHeader>
                   推荐作者
-                  <WriterSwitch onClick={() => changePage(writerPage,writerTotalPage)}>
-                   <i className='iconfont spin'>&#xe626;</i>
+                  <WriterSwitch onClick={() => changePage(writerPage,writerTotalPage,this.spinIcon)}>
+                   <i ref={icon => this.spinIcon = icon} className='iconfont spin'>&#xe626;</i>
                    换一批
                    </WriterSwitch>
               </WriterHeader>
@@ -46,7 +46,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    changePage(page,totalPage){
+    changePage(page,totalPage,spinIcon){
+        let originAngle = spinIcon.style.transform.replace(/[^0-9]/ig,'')
+        if(originAngle){
+            originAngle = parseInt(originAngle,10)
+        }else{
+            originAngle = 0
+        }
+        spinIcon.style.transform = `rotate(${originAngle + 360}deg)`
         if(page < totalPage) {
             dispatch(actionCreators.changeWriterPage(page+ 1))
         }else{

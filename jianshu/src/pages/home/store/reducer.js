@@ -1,6 +1,7 @@
 import {
     fromJS
 } from 'immutable';
+import { CHANGE_WRITER_PAGE } from './constants';
 
 const defaultState = fromJS({
     topicItem: [{
@@ -86,23 +87,27 @@ const defaultState = fromJS({
     },{
         id:8,
         name:'木清琳',
-        decs:'写了292.6k字 · 29.4k喜欢',
+        desc:'写了292.6k字 · 29.4k喜欢',
         imgUrl:'https://upload.jianshu.io/users/upload_avatars/2631077/dc99c361412c?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp'
     },{
         id:9,
         name:'只有一半影子的人',
-        decs:'写了271.2k字 · 1.4k喜欢',
+        desc:'写了271.2k字 · 1.4k喜欢',
         imgUrl:'https://upload.jianshu.io/users/upload_avatars/6305091/dc5b863a-26fc-47df-af32-18177f6cc9ff.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp'
     },{
         id:10,
         name:'灰土豆',
-        decs:'写了341.3k字 · 1.9k喜欢',
+        desc:'写了341.3k字 · 1.9k喜欢',
         imgUrl:'https://upload.jianshu.io/users/upload_avatars/677687/c84b99723362.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp'
-    }]
+    }],
+    writerPage:1,
+    writerTotalPage:2,
 })
 
 export default (state = defaultState, action) => {
     switch (action.type) {
+        case CHANGE_WRITER_PAGE:
+            return state.set('writerPage',action.page)
         default:
             return state;
     }

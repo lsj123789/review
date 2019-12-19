@@ -5,8 +5,7 @@ import List from './components/list';
 import Writer from './components/writer';
 import Recommend from './components/recommend'
 import { HomeWrapper , HomeLeft , HomeRight } from './style';
-import axios from 'axios';
-import * as actionCreators  from './store/actionCreators';
+import { actionCreators }  from './store';
 
 class Home extends Component{
     render(){
@@ -27,15 +26,13 @@ class Home extends Component{
 
     componentDidMount() {
         const { getHomeData } = this.props;
-        axios.get('api/home.json').then(res => {
-            getHomeData(res.data.data)
-        })
+        getHomeData()
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-       getHomeData(data){
-           dispatch(actionCreators.getHomeData(data))
+       getHomeData(){
+           dispatch(actionCreators.getHomeData())
        }
 })
 

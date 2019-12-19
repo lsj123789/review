@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import{ connect } from 'react-redux';
 import { WriterWrapper ,WriterHeader , WriterSwitch, WriterItem } from '../style'
-import  * as actionCreators  from '../store/actionCreators';
+import  { actionCreators }  from '../store';
 
 class Writer extends Component{
 

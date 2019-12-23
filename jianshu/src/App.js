@@ -5,7 +5,7 @@ import { GlobalStyled } from './style'
 import { GlobalIcon } from './statics/iconfont/iconfont'
 import Header from './common/header'
 import Home from './pages/home'
-import Detail from './pages/detail'
+import Detail from './pages/detail/loadable'
 import Login from './pages/login'
 import store from './store'
 import NewArticle from './pages/newArticle';

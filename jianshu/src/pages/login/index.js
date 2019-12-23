@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { actionCreators } from './store'
 import { LoginWrapper , LoginBox , Input , Button } from './style'
 
 class Login extends Component{
     render(){
+        const { handleLogin ,isLogin } = this.props;
         return (
-            <LoginWrapper>
+            !isLogin ?
+            (<LoginWrapper>
                 <LoginBox>
-                    <Input placeholder='请输入账号'/>
-                    <Input placeholder='请输入密码'/>
-                    <Button>登录</Button>
+                    <Input placeholder='请输入账号' ref={(input) => {this.account = input}}/>
+                    <Input placeholder='请输入密码' type='password' ref={(input) => {this.password = input}}/>
+                    <Button onClick={() => handleLogin(this.account,this.password,isLogin)}>登录</Button>
                 </LoginBox>
-            </LoginWrapper>
+            </LoginWrapper>):
+            <Redirect to='/' />
         )
     }
 }
 
-export default Login
+const mapStateToProps = state => ({
+    isLogin:state.getIn(['login','isLogin'])
+})
+
+const mapDispatchToProps = dispatch => ({
+    handleLogin(accountElem,passwordElem,isLogin){
+       dispatch(actionCreators.changeLogin(accountElem,passwordElem,!isLogin))
+    }
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

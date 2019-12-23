@@ -1,6 +1,7 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
 import { WrapperHeader,HotSearch,HotSearchList, HotSearchItem, HotSearchSwitch ,HotSearchTitle ,Logo, Nav , NavItem, NavSearch , Addition , Button , SearchWrapper} from './style'
 import  { actionCreators } from './store'
 
@@ -40,7 +41,7 @@ class Header extends Component{
     }
 
     render(){
-        const { handleInputFocus ,handleInputBlur , focused , mouseIn , hotSearchList} = this.props;
+        const { login , handleInputFocus ,handleInputBlur , focused , mouseIn , hotSearchList , changeLogin} = this.props;
         return(
             <WrapperHeader>
                 <Link to='/'><Logo /></Link>
@@ -50,7 +51,9 @@ class Header extends Component{
                     <NavItem className='right'>
                         <i className='iconfont'>&#xe636;</i>
                     </NavItem>
-                    <NavItem className='right'>登录</NavItem>
+                    <NavItem className='right' onClick = {() => changeLogin(login)}>
+                      {login ? <Link to='/'>退出</Link> : <Link to='/login'>登录</Link>} 
+                    </NavItem>
                     <SearchWrapper>
                       <NavSearch 
                         className={focused || mouseIn? 'focused' : null} 
@@ -80,7 +83,8 @@ const mapStateToProps = state =>{
         hotSearchList:state.getIn(['header','hotSearchList']),
         mouseIn:state.getIn(['header','mouseIn']),
         page:state.getIn(['header','page']),
-        totalPage:state.getIn(['header','totalPage'])
+        totalPage:state.getIn(['header','totalPage']),
+        login:state.getIn(['login','isLogin'])
     }
 }
 
@@ -114,6 +118,9 @@ const mapDispatchToProps = dispatch => {
             }else{
                 dispatch(actionCreators.changePage(1))
             }
+        },
+        changeLogin(bool){
+            dispatch(loginActionCreators.changeLogin(!bool))
         }
     }
 }

@@ -18,8 +18,8 @@ class App extends PureComponent{
         <BrowserRouter>
            <Header />
            <Route path='/' render = {() => <Home />} exact />
+           <Route path='/login' render={() => <Login />} exact />
            <Route path='/detail/:id' render = {() => <Detail />} exact />
-           <Login path='/login' render={() => <Login />} exact />
         </BrowserRouter>
       </Provider>
     );

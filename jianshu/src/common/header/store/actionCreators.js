@@ -4,7 +4,7 @@ import {
     CHANGE_HOT_SEARCH_LIST,
     MOUSE_ENTER,
     MOUSE_LEAVE,
-    CHANGE_PAGE
+    CHANGE_PAGE,
 } from './constants';
 import {
     fromJS
@@ -54,5 +54,5 @@ export {
     getHotSearchList,
     changePage,
     mouseEnter,
-    mouseLeave
+    mouseLeave,
 }

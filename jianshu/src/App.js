@@ -8,6 +8,7 @@ import Home from './pages/home'
 import Detail from './pages/detail'
 import Login from './pages/login'
 import store from './store'
+import NewArticle from './pages/newArticle';
 
 class App extends PureComponent{
   render(){
@@ -19,6 +20,7 @@ class App extends PureComponent{
            <Header />
            <Route path='/' render = {() => <Home />} exact />
            <Route path='/login' render={() => <Login />} exact />
+           <Route path='/newArticle' render={() => <NewArticle />} exact />
            <Route path='/detail/:id' render = {() => <Detail />} exact />
         </BrowserRouter>
       </Provider>

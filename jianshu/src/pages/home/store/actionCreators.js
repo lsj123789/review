@@ -1,6 +1,7 @@
 import {
     CHANGE_WRITER_PAGE,
-    GET_HOME_DATA
+    GET_HOME_DATA,
+    CHANGE_ARTICLE_INDEX
 } from './constants';
 import axios from 'axios';
 
@@ -17,6 +18,11 @@ const changeWriterPage = page => ({
     page
 })
 
+const changeArticleIndex = articleIndex => ({
+    type:CHANGE_ARTICLE_INDEX,
+    articleIndex
+})
+
 const getHomeData = () => {
     return dispatch => {
         axios.get('/api/home.json').then(res => {
@@ -27,5 +33,6 @@ const getHomeData = () => {
 
 export {
     changeWriterPage,
-    getHomeData
+    getHomeData,
+    changeArticleIndex
 }

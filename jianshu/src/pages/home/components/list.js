@@ -1,29 +1,44 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListItem , ListInfo } from '../style'
+import { ListItem , ListInfo ,LoadMore} from '../style'
+import { actionCreators } from '../store'
 
 class List extends Component{
     render(){
-        const { articleList } = this.props;
+        const { articleList ,articleIndex , changeArticleIndex} = this.props;
+        const jsArticleList = [...articleList.toJS()].splice(0,articleIndex)
         return(
             <>
-            {articleList.map(item => {
+            {jsArticleList.map(item => {
                 return (
-                    <ListItem key={item.get('id')}>
-                        <img className='pic' src={item.get('imgUrl')} alt='' />
+                    <ListItem key={item.id}>
+                        <img className='pic' src={item.imgUrl} alt='' />
                        <ListInfo>
-                          <h3 className='title'>{item.get('title')}</h3>
-                          <p className='desc'>{item.get('desc')}</p>
+                          <h3 className='title'>{item.title}</h3>
+                          <p className='desc'>{item.desc}</p>
                        </ListInfo>
                     </ListItem>
                 )
             })}
+            <LoadMore onClick ={() => changeArticleIndex(articleIndex)}>加载更多</LoadMore>
             </>
         )
     }
 }
 
 const mapStateToProps= state =>({
-    articleList:state.getIn(['home','articleList'])
+    articleList:state.getIn(['home','articleList']),
+    articleIndex:state.getIn(['home','articleIndex'])
 })
-export default connect(mapStateToProps)(List)
+
+const mapDispatchToProps = dispatch => ({
+    changeArticleIndex(articleIndex){
+      if(articleIndex <= 12){
+          dispatch(actionCreators.changeArticleIndex(articleIndex +4))
+      }else{
+         alert('没有更多啦')
+      }
+
+    }
+})
+export default connect(mapStateToProps,mapDispatchToProps)(List)

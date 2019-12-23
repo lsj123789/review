@@ -1,0 +1,9 @@
+{
+    "success": true,
+    "data": {
+        "id": 1,
+        "title": "Android圆角ViewGrup/View库，治好设计的圆角病！",
+        "desc": "LinearLayout、RelativeLayout、FrameLayout支持圆角ImageView、TextView、View支持圆角CircleImageView使用xml进行配置，使用简单",
+        "imgUrl":"https://upload.jianshu.io/admin_banners/web_images/4837/c33679ad9014a6b9a89f0292d2f78fdf645585c2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"
+    }
+}

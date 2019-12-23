@@ -12,7 +12,7 @@ class List extends Component{
             <>
             {jsArticleList.map(item => {
                 return (
-                   <Link key={item.id} to='/detail'>
+                   <Link key={item.id} to={`detail/${item.id}`}>
                     <ListItem>
                         <img className='pic' src={item.imgUrl} alt='' />
                        <ListInfo>

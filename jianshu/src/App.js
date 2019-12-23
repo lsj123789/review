@@ -6,6 +6,7 @@ import { GlobalIcon } from './statics/iconfont/iconfont'
 import Header from './common/header'
 import Home from './pages/home'
 import Detail from './pages/detail'
+import Login from './pages/login'
 import store from './store'
 
 class App extends PureComponent{
@@ -15,9 +16,10 @@ class App extends PureComponent{
         <GlobalStyled />
         <GlobalIcon />
         <BrowserRouter>
-        <Header />
+           <Header />
            <Route path='/' render = {() => <Home />} exact />
            <Route path='/detail/:id' render = {() => <Detail />} exact />
+           <Login path='/login' render={() => <Login />} exact />
         </BrowserRouter>
       </Provider>
     );

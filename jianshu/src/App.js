@@ -1,4 +1,4 @@
-import React ,{ Component }from 'react';
+import React ,{ PureComponent }from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter,Route } from 'react-router-dom'
 import { GlobalStyled } from './style'
@@ -8,7 +8,7 @@ import Home from './pages/home'
 import Detail from './pages/detail'
 import store from './store'
 
-class App extends Component{
+class App extends PureComponent{
   render(){
     return (
       <Provider store={store}>

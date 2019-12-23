@@ -18,6 +18,13 @@ const defaultState = fromJS({
     totalPage: 1, //热门搜索总页数
 });
 
+const changeHotSearchList = (state,action) => {
+    return state.merge({
+        hotSearchList:action.data,
+        totalPage:action.totalPage,
+    })
+}
+
 export default (state = defaultState, action) => {
     switch (action.type) {
         case SEARCH_FOCUS:
@@ -25,10 +32,7 @@ export default (state = defaultState, action) => {
         case SEARCH_BLUR:
             return state.set('focused', false)
         case CHANGE_HOT_SEARCH_LIST:
-            return state.merge({
-                hotSearchList:action.data,
-                totalPage:action.totalPage,
-            })
+            return changeHotSearchList(state,action)
         case MOUSE_ENTER :
             return state.set('mouseIn' , true)
         case MOUSE_LEAVE :

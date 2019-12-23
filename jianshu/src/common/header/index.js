@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { WrapperHeader,HotSearch,HotSearchList, HotSearchItem, HotSearchSwitch ,HotSearchTitle ,Logo, Nav , NavItem, NavSearch , Addition , Button , SearchWrapper} from './style'
 import  { actionCreators } from './store'
 
@@ -42,7 +43,7 @@ class Header extends Component{
         const { handleInputFocus ,handleInputBlur , focused , mouseIn , hotSearchList} = this.props;
         return(
             <WrapperHeader>
-                <Logo />
+                <Link to='/'><Logo /></Link>
                 <Nav>
                     <NavItem className='left active'>首页</NavItem>
                     <NavItem className='left'>下载APP</NavItem>

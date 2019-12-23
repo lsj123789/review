@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ListItem , ListInfo ,LoadMore} from '../style'
 import { actionCreators } from '../store'
 
@@ -11,13 +12,15 @@ class List extends Component{
             <>
             {jsArticleList.map(item => {
                 return (
-                    <ListItem key={item.id}>
+                   <Link key={item.id} to='/detail'>
+                    <ListItem>
                         <img className='pic' src={item.imgUrl} alt='' />
                        <ListInfo>
                           <h3 className='title'>{item.title}</h3>
                           <p className='desc'>{item.desc}</p>
                        </ListInfo>
                     </ListItem>
+                   </Link>
                 )
             })}
             <LoadMore onClick ={() => changeArticleIndex(articleIndex)}>加载更多</LoadMore>

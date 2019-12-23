@@ -14,8 +14,8 @@ class App extends Component{
       <Provider store={store}>
         <GlobalStyled />
         <GlobalIcon />
-        <Header />
         <BrowserRouter>
+        <Header />
            <Route path='/' render = {() => <Home />} exact />
            <Route path='/detail' render = {() => <Detail />} exact />
         </BrowserRouter>

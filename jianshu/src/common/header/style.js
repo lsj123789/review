@@ -143,7 +143,7 @@ export const HotSearchSwitch = styled.div`
     }
 `
 
-export const HotSearchItem = styled.a`
+export const HotSearchItem = styled.div`
     font-size:12px;
     line-height:20px;
     padding:0 5px;

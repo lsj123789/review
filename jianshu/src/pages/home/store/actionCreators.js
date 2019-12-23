@@ -1,7 +1,8 @@
 import {
     CHANGE_WRITER_PAGE,
     GET_HOME_DATA,
-    CHANGE_ARTICLE_INDEX
+    CHANGE_ARTICLE_INDEX,
+    TOGGLE_BACK_TOP,
 } from './constants';
 import axios from 'axios';
 
@@ -31,8 +32,14 @@ const getHomeData = () => {
     }
 }
 
+const toggleShowBackTop = bool => ({
+    type:TOGGLE_BACK_TOP,
+    bool
+})
+
 export {
     changeWriterPage,
     getHomeData,
-    changeArticleIndex
+    changeArticleIndex,
+    toggleShowBackTop
 }

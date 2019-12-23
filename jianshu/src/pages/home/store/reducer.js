@@ -1,7 +1,7 @@
 import {
     fromJS
 } from 'immutable';
-import { CHANGE_WRITER_PAGE ,GET_HOME_DATA , CHANGE_ARTICLE_INDEX} from './constants';
+import { CHANGE_WRITER_PAGE ,GET_HOME_DATA , CHANGE_ARTICLE_INDEX ,TOGGLE_BACK_TOP} from './constants';
 
 const defaultState = fromJS({
     topicItem: [],
@@ -11,6 +11,7 @@ const defaultState = fromJS({
     writerList:[],
     writerPage:1,
     writerTotalPage:2,
+    showBackTop:false,
 })
 
 export default (state = defaultState, action) => {
@@ -26,6 +27,8 @@ export default (state = defaultState, action) => {
             })
         case CHANGE_ARTICLE_INDEX:
             return state.set('articleIndex',action.articleIndex)
+        case TOGGLE_BACK_TOP:
+            return state.set('showBackTop',action.bool)
         default:
             return state;
     }

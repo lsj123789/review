@@ -19,6 +19,6 @@
             //如果传入的数组长度不为1的话  递归执行comb函数
             return arr.length === 1 ? arr[0] : comb(arr)
         }
-        return comb(mapDigitsToLetters)
+        return digits.length > 1 ? comb(mapDigitsToLetters) : lettersArr[Number(digits)].split("")
     }
-    console.log(letterCombinations("23"))
+    console.log(letterCombinations("2"))

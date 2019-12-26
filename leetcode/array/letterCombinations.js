@@ -16,12 +16,9 @@
                 }
             }
             arr.splice(0, 2, resArr) // 拿拼接好的数组替换掉传入数组中的前两项
-            if (arr.length !== 1) {
-                comb(arr) //如果传入的数组长度不为1的话  递归执行comb函数
-            } else {
-                return arr
-            }
+            //如果传入的数组长度不为1的话  递归执行comb函数
+            return arr.length === 1 ? arr[0] : comb(arr)
         }
         return comb(mapDigitsToLetters)
     }
-    letterCombinations("23")
+    console.log(letterCombinations("23"))

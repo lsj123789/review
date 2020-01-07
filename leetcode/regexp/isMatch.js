@@ -40,14 +40,13 @@
  * @return {boolean}
  */
 var isMatch = function (s, p) {
-    let pArr = p.match(/([a-z.]\*) | ([a-z])/g)
-    console.log(pArr)
+    let pArr = p.match(/([a-z.]\*) | ([a-z])/g)// 匹配各种模式  如：[a*,.*,adc]
     let sLen = s.length
-    let cur = 0
+    let cur = 0// 当前光标所在
     for (let i = 0, m; i < pArr.length; i++) {
-        m = pArr[i].split()
-        if (m[1] === "*") {
-            if (m[0] === '.') {
+        m = pArr[i].split()// 将当前模式以空格分为数组
+        if (m[1] === "*") {// 判断该数组第二位是不是* 是的话 该模式是带*的，不是的话 该模式为纯字母
+            if (m[0] === '.') {//带*的模式中的 .*模式
                 cur = sLen
                 break
             } else {

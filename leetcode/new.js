@@ -21,6 +21,6 @@ function newOperator(ctor) {
     // 除去构造函数的其余参数
     let argsArr = [...arguments].slice(1) // 等同于 [].slice().call(arguments,1)
     // 绑定this
-    let newReturnObj = ctor.call(newObj, argsArr)
+    let newReturnObj = ctor.apply(newObj, argsArr)
     return (typeof newReturnObj === 'object' && newReturnObj !== null) || typeof newReturnObj === 'function' ? newReturnObj : newObj
 }

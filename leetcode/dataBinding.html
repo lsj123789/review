@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" id="txt">
+        <p id="show"></p>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // js实现简易的双向数据绑定
+    let obj = {}
+    Object.defineProperty(obj, txt, {
+        get: () => obj,
+        set: value => {
+            document.getElementById('txt').value = value
+            document.getElementById('show').innerHTML = value
+        }
+    })
+    document.addEventListener('keyup', e => obj.txt = e.target.value)
+</script>

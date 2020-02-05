@@ -1,3 +1,52 @@
+//promise
+
+function myPromise(callback) {
+    let that = this
+    that.status = 'pending'
+    that.reason = 'undefined'
+    that.value = 'undefined'
+    that.onFulfilledArray = []
+    that.onRejectedArray = []
+
+    function resolve(value) {
+        if (that.status === 'pending') {
+            that.value = value
+            that.status = 'resolved'
+            that.onFulfilledArray.forEach(func => func(that.value))
+        }
+    }
+
+    function reject(reason) {
+        if (that.status === 'pending') {
+            that.reason = reason
+            that.status = 'rejected'
+            that.onRejectedArray.forEach(func => func(that.reason))
+        }
+    }
+
+    try {
+        callback(resolve, reject)
+    } catch (error) {
+        reject(error)
+    }
+}
+
+myPromise.prototype.then = function (onFulfilled, onRejected) {
+    let that = this
+    if (that.status === 'pending') {
+        that.onFulfilledArray.push(value => onFulfilled(value))
+        that.onRejectedArray.push(reason => onRejected(reason))
+    }
+    if (that.status === 'resolve') {
+        onFulfilled(that.value)
+    }
+    if (that.status === 'reject') {
+        onRejected(that.reason)
+    }
+}
+
+
+
 /*
 promise.all()
 Promise.all(iterable) 返回一个新的 Promise 实例。此实例在 iterable 参数内所有的 promise 都 fulfilled 或者参数中不包含 promise 时，状态变成 fulfilled；

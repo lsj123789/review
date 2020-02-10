@@ -39,3 +39,18 @@
 {
     let unique = arr => arr.filter((item, index) => arr.indexOf(item) === index)
 }
+
+//对象键唯一法
+{
+    let unique = arr => {
+        let res = []
+        let obj = {}
+        arr.map(item => {
+            if (!obj[item]) {
+                res.push(item)
+                obj[item] = true
+            }
+        })
+        return res
+    }
+}

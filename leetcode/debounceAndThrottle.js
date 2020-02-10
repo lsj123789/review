@@ -12,7 +12,7 @@
         return function () {
             // 清理掉正在执行的函数 并重新执行
             clearTimeout(timer)
-            timer = setTimeout(() => fn.call(this, arguments), delay)
+            timer = setTimeout(() => fn.apply(this, arguments), delay)
         }
     }
 }
@@ -28,7 +28,7 @@
         return function () {
             let now = Date.now()
             if (now - prev >= delay) {
-                fn.call(this, arguments)
+                fn.apply(this, arguments)
                 prev = Date.now()
             }
         }
@@ -44,7 +44,7 @@
         let timer = null
         if (!timer) {
             timer = setTimeout(() => {
-                fn.call(this, arguments)
+                fn.apply(this, arguments)
                 timer = null
             }, delay)
         }
@@ -68,6 +68,21 @@ function throttle(func, delay) {
             startTime = Date.now();
         } else {
             timer = setTimeout(func, remaining);
+        }
+    }
+}
+
+{
+    //标志位
+    function throttle(fn, delay) {
+        let canRun = true
+        return function () {
+            if (!canRun) return
+            canRun = false
+            setTimeout(() => {
+                fn.apply(this, arguments)
+                canRun = true
+            })
         }
     }
 }

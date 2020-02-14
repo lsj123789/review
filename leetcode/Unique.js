@@ -54,3 +54,45 @@
         return res
     }
 }
+
+
+//字符串去重
+
+// indexOf()法
+// 遍历字符串查找某个字符第一次出现的位置
+{
+    let strUni = str => {
+        let newStr = ''
+        for (let i = 0; i < str.length; i++) {
+            newStr.indexOf(str[i]) === -1 && (newStr += str[i])
+        }
+        return newStr
+    }
+}
+
+//search()法
+// 检索字符串中子字符串第一次出现的位置 或者检索与正则表达式匹配的字符串
+{
+    let strUni = str => {
+        let newStr = ''
+        for (let i = 0; i < str.length; i++) {
+            newStr.search(str[i]) === -1 && (newStr += str[i])
+        }
+        return newStr
+    }
+}
+
+//对象属性唯一法
+{
+    let strUni = str => {
+        let obj = {}
+        let newStr = ''
+        for (let i = 0; i < str.length; i++) {
+            if (!obj[str[i]]) {
+                newStr += str[i]
+                obj[str[i]] = 0 // 给对象属性赋值 这个值可以任意取 意思是把每个遍历的字符作为对象属性保存 保证属性唯一性
+            }
+        }
+        return newStr
+    }
+}

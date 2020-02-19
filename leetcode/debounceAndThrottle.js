@@ -82,7 +82,7 @@ function throttle(func, delay) {
             setTimeout(() => {
                 fn.apply(this, arguments)
                 canRun = true
-            })
+            }, delay)
         }
     }
 }

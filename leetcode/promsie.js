@@ -76,3 +76,20 @@ Promise.all = function (promises) {
         }
     })
 }
+
+Promise.all = promises => {
+    return new Promise((resolve, reject) => {
+        let arr = [...promises]
+        arr.length === 0 && resolve([])
+        let res = []
+        for (let i = 0; i < arr.length; i++) {
+            Promise.resolve(arr[i]).then(data => {
+                res.push(data)
+                res.length === arr.length && resolve(res)
+            }, err => {
+                reject(err)
+                return
+            })
+        }
+    })
+}

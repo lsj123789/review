@@ -1,21 +1,23 @@
-// 找到给定数组的 和最大的字串
-// eg:[1,2,3,-3,-5,10,-20,70,3,-1,2]  和最大的子串：'70,3,-1,2'
+//{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。
+//给一个数组，返回它的最大连续子序列的和 (子向量的长度至少是1)
 
-let findMaxSub = arr => {
-    let sum = 0
-    let score = 0 // 记录最大的值
-    let preIndex ,afterIndex
-    arr.map((item, index) => {
-        sum += item
-        if (sum < 0) {
-            sum = 0
-            preIndex = index + 1
-        } else if (sum > score) {
-            score = sum
-            afterIndex = index
-        }
-    })
-    return arr.splice(preIndex,afterIndex)
+
+function FindGreatestSumOfSubArray(array) {
+    if (array.every(item => item < 0)) {//考虑数组项全为负数情况
+        return array.sort()[0]
+    } else {
+        let curSum = 0
+        let maxSum = 0
+        array.map(item => {
+            curSum += item
+            if (curSum < 0) {
+                curSum = 0
+            } else if (curSum > maxSum) {
+                maxSum = curSum
+            }
+        })
+        return maxSum
+    }
 }
 
-console.log(findMaxSub([1, 2, 3, -3, -5, 10, -20, 70, 3, -1, 2]))
+console.log(FindGreatestSumOfSubArray([1, 2, 3, -80, 2]))

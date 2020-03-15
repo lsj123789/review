@@ -24,3 +24,17 @@ function newOperator(ctor) {
     let newReturnObj = ctor.apply(newObj, argsArr)
     return (typeof newReturnObj === 'object' && newReturnObj !== null) || typeof newReturnObj === 'function' ? newReturnObj : newObj
 }
+
+
+function _new() {
+    let target = {} // 创建一个空对象
+    let [constructor, ...args] = [...arguments] // 第一个参数是构造函数
+    target._proto_ = constructor.prototype // 执行[[原型]]链接  构造函数中this指向空对象
+    let result = constructor.apply(target, args) //执行构造函数 将属性和方法添加到空对象上
+    if ((result && typeof (result) === 'object') || typeof (result) === 'function') {
+        //如果构造函数返回的是一个对象 就返回该对象
+        return result
+    }
+    // 如果构造函数返回的不是对象  就返回我们创建的空对象
+    return target
+}

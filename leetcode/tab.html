@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="ul-wrapper">
+            <li class="li-con tab-active">tab1</li>
+            <li class="li-con">tab2</li>
+            <li class="li-con">tab3</li>
+            <li class="li-con">tab4</li>
+        </ul>
+        <div class="content content-active">content1</div>
+        <div class="content">content2</div>
+        <div class="content">content3</div>
+        <div class="content">content4</div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //定义tab类
+    function Tab(tabId) {
+        this.init(tabId)
+    }
+    // 入口函数
+    Tab.prototype.init = function (tabId) {
+        var ul = this.ul = document.getElementsByClassName('ul-wrapper')[0]
+        var lis = this.lis = document.getElementsByClassName('li-con')
+        var divArr = this.divArr = document.getElementsByClassName('content')
+        this.current = 0 // 上一次选择的tab的index
+        this.active(0)
+        this.event()
+    }
+    //控制选中效果的函数
+    Tab.prototype.active = function (index) {
+        if (index !== this.current) {
+            this.lis[index].classList.add('tab-active')
+            this.divArr[index].classList.add('content-active')
+            this.lis[this.current].classList.remove('tab-active')
+            this.divArr[this.current].classList.remove('content-active')
+            this.current = index
+        }
+    }
+    //监听事件
+    Tab.prototype.event = function () {
+        for (let i = 0; i < this.lis.length; i++) {
+            this.lis[i].addEventListener('click', () => {
+                this.active(i)
+            })
+        }
+    }
+    var tab = new Tab('.wrapper')
+    tab.active(0)
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .ul-wrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #808080;
+        height: 40px;
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .tab-active {
+        color: #fff;
+    }
+
+    .content {
+        display: none;
+    }
+
+    .content-active {
+        display: block;
+    }
+</style>
